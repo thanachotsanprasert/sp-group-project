@@ -3,20 +3,45 @@
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Page Title</title>
     <link rel='stylesheet' href='main.css'>
-    <style type="text/tailwindcss">
+   
+       <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#CF0A0A',
+                        accent: '#DC5F00',
+                        neutral: '#EEEEEE',
+                    }
+                }
+            }
+        }
+    </script>
+   
+   <style type="text/tailwindcss">
+
+
+
+
 
         @layer components {
-            body{
+            /* body{
                @apply text-[#EEEEEE];
+            } */
+             .container-sun{
+              @apply  flex flex-row justify-center mt-[10%]  w-full gap-x-3.5 
+                      max-md:flex-col max-md:items-center max-md:mt-0;
+             }
+            .card-sun{
+              @apply gap-2 flex flex-col justify-center items-center bg-[#F5F0E8] border-2 border-solid w-[40%]
+                     max-md:w-full ;
             }
-            .card{
-              @apply gap-2 flex flex-col justify-center items-center bg-[#DC5F00] border-2 border-solid w-[40%];
-            }
-            .btn{
-               @apply  bg-[#CF0A0A] self-center mt-[10%]
+            .btn-sun{
+               @apply  bg-[#CF0A0A] text-[#EEEEEE] p-3 self-center mt-[10%]
             }
 
         }  
@@ -25,22 +50,84 @@
 
     </style>
 </head>
-<body>
-<header>
+<body class="bg-neutral">
 
 
-</header>
+<header class="bg-primary text-neutral shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a href="#" class="text-2xl font-bold text-accent">
+                    LOGO
+                </a>
+            </div>
 
-    <div class="flex flex-row justify-center mt-[10%]  w-full gap-x-3.5"> 
-        <div class="card bg-[#F5F0E8] "><img class="w-full h-auto" src="src/fired-chicken.jpg" alt="item-photo"/></div>
-        <div class="card">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-secondary transition duration-300">Home</a></li>
+                    <li><a href="#" class="hover:text-secondary transition duration-300">Menu</a></li>
+                    <li><a href="order.html" class="hover:text-secondary transition duration-300">Order</a></li>
+                    <li><a href="#" class="hover:text-secondary transition duration-300">Contact</a></li>
+                </ul>
+                <button class="bg-secondary hover:bg-accent text-neutral px-6 py-2 rounded-full font-semibold transition duration-300">
+                    Sign In
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="text-neutral focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary border-t border-accent/20">
+            <ul class="flex flex-col p-4 space-y-4">
+                <li><a href="index.html" class="block hover:text-secondary transition duration-300">Home</a></li>
+                <li><a href="#" class="block hover:text-secondary transition duration-300">Menu</a></li>
+                <li><a href="order.html" class="block hover:text-secondary transition duration-300">Order</a></li>
+                <li><a href="#" class="block hover:text-secondary transition duration-300">Contact</a></li>
+                <li>
+                    <button class="w-full bg-secondary hover:bg-accent text-neutral px-6 py-2 rounded-lg font-semibold transition duration-300">
+                        Sign In
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <script>
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <div class="container-sun"> 
+        <div class="card-sun bg-[#F5F0E8] p-[5%]"><img class="w-full h-auto" src="src/fired-chicken.jpg" alt="item-photo"/></div>
+        <div class="card-sun">
             <div class="h-[60%] pt-[10%]">
             <h1>Items Name</h1>
             <p>PRICE</p>
             <span>Quantity: <input class="bg-[#EEEEEE] text-black"  type="number" value="0" min="0" max="50" step="1"></span>
             <input class="w-[80%] self-center  bg-amber-50 h-[50%] overflow-scroll"  placeholder="NOTE" type="textarea" >
             </div>
-            <button class="btn">ADD TO CART</button>
+            <button class="btn-sun">ADD TO CART</button>
         </div>
 
 
