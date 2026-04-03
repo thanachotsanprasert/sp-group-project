@@ -1,12 +1,463 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Page Title</title>
-    <link rel='stylesheet' href='main.css'>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="order-styles.css" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!--icon-->
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <!-- TOP NAV -->
+      <nav class="topnav">
+        <div class="logo">SERIOUS PUNCH</div>
+        <div class="nav-links" id="desknav">
+          <a href="#">Menu</a>
+          <a href="#">Order</a>
+          <a href="#">Locations</a>
+        </div>
+        <button class="cart-btn" onclick="showCart()">
+          <i
+            data-lucide="shopping-cart"
+            style="width: 18px; height: 18px; stroke-width: 2"
+          ></i>
+          Cart <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </nav>
+
+      <!-- ===================== DESKTOP LAYOUT ===================== -->
+      <div class="desktop-layout">
+        <!-- LEFT: PROMO STICKY PANEL -->
+        <aside class="promo-panel">
+          <div class="promo-slides" id="promoSlides">
+            <div class="promo-slide active" id="slide-0">
+              <div class="slide-img slide-img-s1"></div>
+              <div class="slide-content">
+                <span class="slide-tag">LIMITED TIME</span>
+                <div class="slide-title">SERIOUS PUNCH BUCKET</div>
+                <div class="slide-price">฿299.-</div>
+                <div class="slide-desc">
+                  5 Jan 26 – 22 Jul 26 · Prices may vary per channel
+                </div>
+                <button
+                  class="slide-cta"
+                  onclick="addDeal('Serious Punch Bucket', 299)"
+                >
+                  Order Now
+                </button>
+              </div>
+            </div>
+
+            <div class="promo-slide" id="slide-1">
+              <div class="slide-img slide-img-s2"></div>
+              <div class="slide-content">
+                <span class="slide-tag">COLLAB DROP</span>
+                <div class="slide-title">MVP EDITION 2026</div>
+                <div class="slide-price">฿199.-</div>
+                <div class="slide-desc">
+                  1 Apr 26 – 22 Apr 26 · Limited stock
+                </div>
+                <button class="slide-cta" onclick="addDeal('Mvp edition', 199)">
+                  Order Now
+                </button>
+              </div>
+            </div>
+            <div class="promo-slide" id="slide-2">
+              <div class="slide-img slide-img-s3"></div>
+              <div class="slide-content">
+                <span class="slide-tag">SNACK SHARING</span>
+                <div class="slide-title">CHICK N' SHARE SET</div>
+                <div class="slide-price">฿99.-</div>
+                <div class="slide-desc">28 Aug 25 – 22 Apr 26</div>
+                <button
+                  class="slide-cta"
+                  onclick="addDeal('Chick N Share', 99)"
+                >
+                  Order Now
+                </button>
+              </div>
+            </div>
+            <div class="promo-slide" id="slide-3">
+              <div class="slide-img slide-img-s4"></div>
+              <div class="slide-content">
+                <span class="slide-tag">NEW ARRIVAL</span>
+                <div class="slide-title">SPICY HEAVY HITTER</div>
+                <div class="slide-price">฿149.-</div>
+                <div class="slide-desc">Apr 26 · Available at all branches</div>
+                <button
+                  class="slide-cta"
+                  onclick="addDeal('Spicy Heavy Hitter', 149)"
+                >
+                  Order Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="promo-dots" id="promoDots">
+            <button class="dot active" onclick="goSlide(0)"></button>
+            <button class="dot" onclick="goSlide(1)"></button>
+            <button class="dot" onclick="goSlide(2)"></button>
+            <button class="dot" onclick="goSlide(3)"></button>
+          </div>
+        </aside>
+
+        <!-- RIGHT: MENU GRID -->
+        <main class="menu-panel">
+          <div class="section-label">OUR MENU</div>
+          <div class="section-title">WHAT ARE YOU CRAVING?</div>
+
+          <div class="category-tabs" id="deskTabs">
+            <button class="tab active" onclick="filterCat(this, 'all')">
+              All
+            </button>
+            <button class="tab" onclick="filterCat(this, 'bucket')">
+              Buckets
+            </button>
+            <button class="tab" onclick="filterCat(this, 'sandwich')">
+              Sandwiches
+            </button>
+            <button class="tab" onclick="filterCat(this, 'side')">Sides</button>
+            <button class="tab" onclick="filterCat(this, 'dessert')">
+              Desserts
+            </button>
+          </div>
+
+          <div class="menu-grid" id="menuGrid"></div>
+        </main>
+      </div>
+
+      <!-- ===================== MOBILE LAYOUT ===================== -->
+      <div class="mobile-layout">
+        <!-- CAROUSEL -->
+        <div class="mobile-promo-carousel" id="mobCarousel">
+          <div class="mob-slide active">
+            <div class="mob-slide-bg mob-bg1"></div>
+            <div style="position: relative; z-index: 2">
+              <div class="mob-slide-tag">LIMITED TIME</div>
+              <div class="mob-slide-title">SERIOUS PUNCH BUCKET</div>
+              <div class="mob-slide-price">฿199.-</div>
+              <button class="mob-cta" onclick="addDeal('Pordee Bucket', 199)">
+                Order Now
+              </button>
+            </div>
+          </div>
+          <div class="mob-slide">
+            <div class="mob-slide-bg mob-bg2"></div>
+            <div style="position: relative; z-index: 2">
+              <div class="mob-slide-tag">COLLAB DROP</div>
+              <div class="mob-slide-title">MVP 2026</div>
+              <div class="mob-slide-price">฿199.-</div>
+              <button class="mob-cta" onclick="addDeal('KFC Flip Flop', 199)">
+                Order Now
+              </button>
+            </div>
+          </div>
+          <div class="mob-slide">
+            <div class="mob-slide-bg mob-bg3"></div>
+            <div style="position: relative; z-index: 2">
+              <div class="mob-slide-tag">SNACK SHARING</div>
+              <div class="mob-slide-title">CHICK N' SHARE</div>
+              <div class="mob-slide-price">฿99.-</div>
+              <button class="mob-cta" onclick="addDeal('Chick N Share', 99)">
+                Order Now
+              </button>
+            </div>
+          </div>
+          <div class="mob-slide">
+            <div class="mob-slide-bg mob-bg4"></div>
+            <div style="position: relative; z-index: 2">
+              <div class="mob-slide-tag">NEW ARRIVAL</div>
+              <div class="mob-slide-title">ZABB TEAM BOX</div>
+              <div class="mob-slide-price">฿149.-</div>
+              <button class="mob-cta" onclick="addDeal('Zabb Team Box', 149)">
+                Order Now
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mob-dots" id="mobDots">
+          <button class="mob-dot active" onclick="mobGoSlide(0)"></button>
+          <button class="mob-dot" onclick="mobGoSlide(1)"></button>
+          <button class="mob-dot" onclick="mobGoSlide(2)"></button>
+          <button class="mob-dot" onclick="mobGoSlide(3)"></button>
+        </div>
+
+        <!-- MENU LIST -->
+        <div class="mob-menu-section">
+          <div class="mob-section-hd">MENU</div>
+          <div class="mob-cat-tabs" id="mobTabs">
+            <button class="mob-tab active" onclick="mobFilter(this, 'all')">
+              All
+            </button>
+            <button class="mob-tab" onclick="mobFilter(this, 'bucket')">
+              Buckets
+            </button>
+            <button class="mob-tab" onclick="mobFilter(this, 'sandwich')">
+              Sandwiches
+            </button>
+            <button class="mob-tab" onclick="mobFilter(this, 'side')">
+              Sides
+            </button>
+            <button class="mob-tab" onclick="mobFilter(this, 'dessert')">
+              Desserts
+            </button>
+          </div>
+          <div class="mob-menu-list" id="mobMenuList"></div>
+        </div>
+
+        <!-- BOTTOM CART BAR -->
+        <div class="mob-cart-bar">
+          <div class="mob-cart-info">
+            <div class="mob-cart-count" id="mobCartCount">0 items</div>
+            <div class="mob-cart-total" id="mobCartTotal">฿0.-</div>
+          </div>
+          <button class="mob-checkout-btn" onclick="showCart()">
+            VIEW CART →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">Added to cart!</div>
+
+    <!--CDN ICON-->
+    <script>
+      lucide.createIcons();
+    </script>
+
+    <script>
+      const MENU = [
+        {
+          id: 1,
+          name: "Signature 8pc Bucket",
+          desc: "Classic fried chicken, 8 pieces",
+          price: 299,
+          cat: "bucket",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 2,
+          name: "Party Pack 20pc",
+          desc: "Spicy chicken bucket",
+          price: 599,
+          cat: "bucket",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 3,
+          name: "Zabb Team Box",
+          desc: "Wingz Zabb + nuggets combo",
+          price: 149,
+          cat: "bucket",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 4,
+          name: "Spicy Chicken Sandwich",
+          desc: "Crispy, spicy, and juicy",
+          price: 89,
+          cat: "sandwich",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 5,
+          name: "Classic Sandwich",
+          desc: "Original crispy chicken",
+          price: 79,
+          cat: "sandwich",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 6,
+          name: "Zinger Double",
+          desc: "Double patty, double flavor",
+          price: 119,
+          cat: "sandwich",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 7,
+          name: "Fries",
+          desc: "Golden crispy fries",
+          price: 39,
+          cat: "side",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 8,
+          name: "Coleslaw",
+          desc: "Creamy classic slaw",
+          price: 29,
+          cat: "side",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 9,
+          name: "Mac & Cheese",
+          desc: "Creamy, cheesy goodness",
+          price: 49,
+          cat: "side",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 10,
+          name: "Chocolate Cupcake",
+          desc: "Rich chocolate treat",
+          price: 45,
+          cat: "dessert",
+          icon: "images/menu-list1",
+        },
+        {
+          id: 11,
+          name: "Soft Serve",
+          desc: "Vanilla swirl",
+          price: 35,
+          cat: "dessert",
+          icon: "🍦",
+        },
+      ];
+
+      let cart = [];
+      let total = 0;
+      let currentSlide = 0;
+      let mobCurrentSlide = 0;
+
+      function renderMenu(cat = "all") {
+        const items = cat === "all" ? MENU : MENU.filter((m) => m.cat === cat);
+        document.getElementById("menuGrid").innerHTML = items
+          .map(
+            (m) => `
+    <div class="menu-card">
+      <div class="menu-img">${m.icon}</div>
+      <div class="menu-info">
+        <div class="menu-name">${m.name}</div>
+        <div class="menu-desc">${m.desc}</div>
+        <div class="menu-footer">
+          <div class="menu-price">฿${m.price}.-</div>
+          <button class="add-btn" onclick="addItem('${m.name}',${m.price})">+</button>
+        </div>
+      </div>
+    </div>
+  `,
+          )
+          .join("");
+
+        document.getElementById("mobMenuList").innerHTML = items
+          .map(
+            (m) => `
+    <div class="mob-card">
+      <div class="mob-card-img">${m.icon}</div>
+      <div class="mob-card-info">
+        <div class="mob-card-name">${m.name}</div>
+        <div class="mob-card-desc">${m.desc}</div>
+        <div class="mob-card-price">฿${m.price}.-</div>
+      </div>
+      <button class="mob-add-btn" onclick="addItem('${m.name}',${m.price})">+</button>
+    </div>
+  `,
+          )
+          .join("");
+      }
+
+      function addItem(name, price) {
+        cart.push({ name, price });
+        total += price;
+        updateCartUI();
+        showToast("Added: " + name);
+      }
+
+      function addDeal(name, price) {
+        addItem(name, price);
+      }
+
+      function updateCartUI() {
+        const count = cart.length;
+        document.getElementById("cartCount").textContent = count;
+        document.getElementById("mobCartCount").textContent =
+          count + " item" + (count !== 1 ? "s" : "");
+        document.getElementById("mobCartTotal").textContent =
+          "฿" + total + ".-";
+      }
+
+      function showCart() {
+        const items = cart.map((c) => c.name + " ฿" + c.price).join("\n");
+        alert(
+          "🛒 YOUR CART\n\n" +
+            (cart.length ? items : "Empty cart") +
+            "\n\nTotal: ฿" +
+            total,
+        );
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2000);
+      }
+
+      function filterCat(btn, cat) {
+        document
+          .querySelectorAll("#deskTabs .tab")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(cat);
+      }
+
+      function mobFilter(btn, cat) {
+        document
+          .querySelectorAll("#mobTabs .mob-tab")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderMenu(cat);
+      }
+
+      function goSlide(n) {
+        document
+          .querySelectorAll("#promoSlides .promo-slide")
+          .forEach((s, i) => {
+            s.classList.toggle("active", i === n);
+          });
+        document.querySelectorAll("#promoDots .dot").forEach((d, i) => {
+          d.classList.toggle("active", i === n);
+        });
+        currentSlide = n;
+      }
+
+      function mobGoSlide(n) {
+        document.querySelectorAll("#mobCarousel .mob-slide").forEach((s, i) => {
+          s.classList.toggle("active", i === n);
+        });
+        document.querySelectorAll("#mobDots .mob-dot").forEach((d, i) => {
+          d.classList.toggle("active", i === n);
+        });
+        mobCurrentSlide = n;
+      }
+
+      setInterval(() => {
+        goSlide((currentSlide + 1) % 4);
+      }, 4000);
+      setInterval(() => {
+        mobGoSlide((mobCurrentSlide + 1) % 4);
+      }, 3500);
+
+      let touchStartX = 0;
+      const carousel = document.getElementById("mobCarousel");
+      carousel.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+      });
+      carousel.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40)
+          mobGoSlide((mobCurrentSlide + (dx < 0 ? 1 : -1) + 4) % 4);
+      });
+
+      renderMenu();
+    </script>
+  </body>
 </html>
